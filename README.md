@@ -29,16 +29,14 @@ SELECT COUNT(order_id) AS total_orders FROM orders;
 Total revenue from pizza sales:
 
 sql
-Copy
-Edit
+
 SELECT ROUND(SUM(OD.quantity * PZ.price), 2) AS total_sales
 FROM order_details OD
 JOIN pizzas PZ ON OD.pizza_id = PZ.pizza_id;
 Most common pizza size ordered:
 
 sql
-Copy
-Edit
+
 SELECT pz.size, COUNT(od.order_details_id) AS order_count
 FROM pizzas pz
 JOIN order_details od ON pz.pizza_id = od.pizza_id
@@ -49,8 +47,7 @@ LIMIT 1;
 Revenue contribution by pizza category:
 
 sql
-Copy
-Edit
+
 SELECT pt.category, ROUND(SUM(pz.price * od.quantity) /
 (SELECT SUM(pz1.price * od1.quantity)
  FROM pizzas pz1
@@ -62,8 +59,7 @@ GROUP BY pt.category;
 Top 3 pizzas by revenue per category using window functions:
 
 sql
-Copy
-Edit
+
 SELECT name, revenue
 FROM (
   SELECT category, name, revenue,
@@ -81,8 +77,7 @@ WHERE rn <= 3;
 Cumulative daily revenue analysis:
 
 sql
-Copy
-Edit
+
 SELECT order_date, sales,
        ROUND(SUM(sales) OVER(ORDER BY order_date), 2) AS cumulative_sales
 FROM (
